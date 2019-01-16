@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Find all the directories
+ls -d */
+
 # Find a file and with a particular pattern an d then send it to destination
 find ./ -name '*.out' | xargs -I '{}' mv {} destionantion
 
