@@ -56,7 +56,10 @@ aws lambda invoke --invocation-type RequestResponse --function-name arn:aws:lamb
 python3 -m venv '<env_name>'
 
 # Docker
+# Example
 docker build -t friendlyhello .
+# build from a folder containing the Dockerfile
+docker image build kyc_docker/
 # List all the images
 docker image ls
 docker rmi -f '<IMAGEID>'
@@ -86,6 +89,10 @@ docker load -i '<path to image tar file>'
 # Use docker without sudo (happens in linux systems)
 sudo setfacl -m user:username:rw /var/run/docker.sock
 
+# tagging your image
+docker tag bb38976d03cf yourhubusername/verse_gapminder:firsttry
+
+
 # # GPU using docker
 # for python2-gpu version but as we are using -it it will be a interactive and won't save anything when you exit it
 docker run --runtime=nvidia -it tensorflow/tensorflow:latest-gpu bash
@@ -104,3 +111,20 @@ sudo docker exec -it [container-id] bash
 
 # Change git from ssh to https or other way round
 git remote set-url origin '<ssh link or https link>'
+
+# SSH when runnign jupyter notebook
+ssh -L 8000:localhost:8888 <ip address>
+# example ssh -L 8000:localhost:8888 puzzle@puzzle.does-it.net
+
+# AWS ECR 
+# Referance link : https://docs.aws.amazon.com/AmazonECR/latest/userguide/docker-basics.html
+# Create the repo (if not already present)
+aws ecr create-repository --repository-name hello-repository --region region
+# Tag the image you have already build on local machine
+docker tag hello-world aws_account_id.dkr.ecr.region.amazonaws.com/hello-repository:tag_name
+# Login to ecr (this will give you a command with token and it will be valid for 12 hours and use that command to actaully login succesfully)
+aws ecr get-login --no-include-email --region region
+# finally push the image
+docker push aws_account_id.dkr.ecr.region.amazonaws.com/hello-repository:tag_name
+# View all the images in a repo
+aws ecr describe-images --repository-name foo 
