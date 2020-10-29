@@ -31,7 +31,7 @@ git merge origin/master
 git submodule update --remote submodule_name
 git add
 Git commit -m 'Updating the submodule'
-# Remove a submodule
+# Remove a submodulecool
 git submodule deinit path_to_submodule
 git rm path_to_submodule
 git commit-m "Removed submodule "
@@ -53,7 +53,10 @@ aws lambda invoke --invocation-type RequestResponse --function-name arn:aws:lamb
 
 
 # virtual env on python3
+# In built with python3
 python3 -m venv '<env_name>'
+# virtualenv is a different package all together and would need installation
+virtualenv '<env_name>'
 
 # Docker
 # Example
@@ -128,3 +131,29 @@ aws ecr get-login --no-include-email --region region
 docker push aws_account_id.dkr.ecr.region.amazonaws.com/hello-repository:tag_name
 # View all the images in a repo
 aws ecr describe-images --repository-name foo 
+
+# AWS ssm for secure keep of parameters
+# storing using KMS
+aws ssm put-parameter --name "Name-of-the-param" --value "value" --type "SecureString" --key-id alias/<name-of-the-KMS>
+# Without KMS
+aws ssm put-parameter --name "Name-of-the-param" --value "value" --type "String"
+# With json 
+aws ssm put-parameter --cli-input  '{"Name" : "Name-of-the-param", "Value" : "value"}' --type "SecureString" --key-id alias/verizy-crust
+
+# To view all parameters
+aws ssm describe-parameters --type "SecureString" --key-id alias/verizy-crust
+
+# To get value of parameter and parameters respectively
+aws ssm get-parameter --name "Name-of-the-param"
+aws ssm get-parameters --names "Name-of-the-param1" "Name-of-the-param2"
+
+
+# ffmpeg
+ffmpeg -ss 00:01:00 -i input.mp4 -to 00:02:00 -c copy output.mp4
+# About the command:
+# -i: This specifies the input file. In that case, it is (input.mp4). 
+# -ss: Used with -i, this seeks in the input file (input.mp4) to position. 
+# 00:01:00: This is the time your trimmed video will start with. 
+# -to: This specifies duration from start (00:01:40) to end (00:02:12). 
+# 00:02:00: This is the time your trimmed video will end with. 
+# -c copy: This is an option to trim via stream copy. (NB: Very fast) 
