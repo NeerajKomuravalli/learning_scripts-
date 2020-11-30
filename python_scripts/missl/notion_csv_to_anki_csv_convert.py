@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import argparse
 
 
 def convert_notion_csv_to_anki(notion_csv_path, output_csv_path):
@@ -47,4 +48,11 @@ def convert_notion_csv_to_anki(notion_csv_path, output_csv_path):
 
 
 if __name__ == "__main__":
-	convert_notion_csv_to_anki("/Users/neeraj/Downloads/tmp.csv", "/Users/neeraj/Downloads/tmp_cvt.csv")
+	parser = argparse.ArgumentParser(description="Convert notion data to anki data")
+    
+    parser.add_argument('--notion_csv_path', type=str, required=True, help='Path to the notion generated csv file')
+    parser.add_argument('--output_csv_path', type=str, required=True, help='Path to the anki input csv file')
+
+    args = parser.parse_args()
+
+	convert_notion_csv_to_anki(args.notion_csv_path, args.output_csv_path)
