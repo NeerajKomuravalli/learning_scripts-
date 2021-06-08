@@ -157,3 +157,11 @@ ffmpeg -ss 00:01:00 -i input.mp4 -to 00:02:00 -c copy output.mp4
 # -to: This specifies duration from start (00:01:40) to end (00:02:12). 
 # 00:02:00: This is the time your trimmed video will end with. 
 # -c copy: This is an option to trim via stream copy. (NB: Very fast) 
+
+# Neo4j on mac
+# To start neo4j server
+~/neo4j-community-4.2.5/bin/neo4j start
+# To stop neo4j server
+~/neo4j-community-4.2.5/bin/neo4j stop
+# To start cypher temrinal
+~/neo4j-community-4.2.5/bin/cypher-shell -a bolt://localhost:7687 -u dbname -p password
