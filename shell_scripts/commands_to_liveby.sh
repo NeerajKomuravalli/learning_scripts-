@@ -165,3 +165,15 @@ ffmpeg -ss 00:01:00 -i input.mp4 -to 00:02:00 -c copy output.mp4
 ~/neo4j-community-4.2.5/bin/neo4j stop
 # To start cypher temrinal
 ~/neo4j-community-4.2.5/bin/cypher-shell -a bolt://localhost:7687 -u dbname -p password
+
+# Kafka and kafka related commands
+# Zookeeper
+zookeeper-server-start /usr/local/etc/kafka/zookeeper.properties
+# Kafka broker
+kafka-server-start /usr/local/etc/kafka/server.properties
+# Kafka topic
+kafka-topics --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic message-log
+# Kafka producer
+kafka-console-producer --broker-list localhost:9092 --topic message-log
+# Kafka consumer
+kafka-console-consumer --bootstrap-server localhost:9092 --topic message-log --from-beginning
